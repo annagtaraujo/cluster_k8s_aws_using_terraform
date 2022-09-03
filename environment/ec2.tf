@@ -9,7 +9,7 @@ module "k8s-master"{
   instance_type               = var.instance_type
   key_name                    = module.ingress-keypair.keypair_name
   private_ip                  = var.ip_master
-  security_group              = [aws_security_group.k8s_sg.name]
+  security_group              = [aws_security_group.k8s_sg.id]
 
   user_data = file("../scripts/script-k8s-master-inst.sh")
 
@@ -30,7 +30,7 @@ module "k8s-worker"{
   instance_type               = var.instance_type
   key_name                    = module.ingress-keypair.keypair_name
   private_ip                  = each.value
-  security_group              = [aws_security_group.k8s_sg.name]
+  security_group              = [aws_security_group.k8s_sg.id]
 
   user_data = file("../scripts/script-k8s-worker-inst.sh")
 
