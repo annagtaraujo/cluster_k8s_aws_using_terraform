@@ -14,3 +14,8 @@ resource "aws_instance" "ec2" {
     var.tags
   )
 }
+
+resource "aws_eip" "ec2-ip" {
+  instance = aws_instance.ec2.id
+  vpc      = true
+}
