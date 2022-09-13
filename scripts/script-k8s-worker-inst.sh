@@ -22,8 +22,6 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 
 #Install Kubernetes
-sudo rm /etc/containerd/config.toml #this prevents preflight error of failed runtime
-sudo systemctl restart containerd
 sudo apt-get update && apt-get install -y apt-transport-https gnupg2
 sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 sudo echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" >> ~/kubernetes.list
@@ -42,6 +40,10 @@ bash
 #Letting Iptables See Bridged Traffic
 sudo modprobe br_netfilter ip_vs_rr ip_vs_wrr ip_vs_sh nf_conntrack_ipv4 ip_vs
 sudo sysctl net.bridge.bridge-nf-call-iptables=1 #verify with lsmod | grep br_netfilter
+
+#Enabling Container.d to join cluster
+sudo rm /etc/containerd/config.toml #this prevents preflight error of failed runtime
+sudo systemctl restart containerd
 
 #Install net-tools
 sudo apt-get install -y net-tools traceroute telnet
