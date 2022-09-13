@@ -22,6 +22,8 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 
 #Install Kubernetes
+sudo rm /etc/containerd/config.toml #this prevents preflight error of failed runtime
+sudo systemctl restart containerd
 sudo apt-get update && apt-get install -y apt-transport-https gnupg2
 sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 sudo echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" >> ~/kubernetes.list
